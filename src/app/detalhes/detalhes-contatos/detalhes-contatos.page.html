@@ -1,0 +1,94 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons>
+      <ion-back-button Href=""></ion-back-button>
+    </ion-buttons>
+    <ion-title>Editar Contato</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+   <div *ngIf="!editar">
+    <ion-fab slot="fixed" edge="true" class="botao">
+      <ion-fab-button color="danger" (click)="presentActionSheet()">
+        <ion-icon name="trash-outline"></ion-icon>
+      </ion-fab-button>
+     </ion-fab>
+    <span>Nome:</span>
+    <ion-item>
+    <ion-icon slot="start" name="person-circle-outline"></ion-icon> 
+    <ion-label>{{dadoSelecionado.nome}}</ion-label>
+  </ion-item>
+
+  <span>Sobrenome:</span>
+  <ion-item>
+    <ion-icon slot="start" name="person-circle-outline"></ion-icon> 
+    <ion-label>{{dadoSelecionado.sobrenome}}</ion-label>
+  </ion-item>
+
+  <span>Tipo de Telefone:</span>
+  <ion-item>
+    <ion-icon slot="start" name="call-outline"></ion-icon>
+    <ion-label>{{dadoSelecionado.tipo_tel}}</ion-label>
+  </ion-item>
+
+  <span>Telefone:</span>
+  <ion-item>
+    <ion-icon slot="start" name="call-outline"></ion-icon>
+    <ion-label>{{dadoSelecionado.telefone}}</ion-label>
+  </ion-item>
+
+  <span>Email:</span>
+  <ion-item>
+    <ion-icon slot="start" name="mail-outline"></ion-icon>
+    <ion-label>{{dadoSelecionado.email}}</ion-label>
+  </ion-item>
+    <ion-button  (click)="alterar()" shape="block">Alterar Contato</ion-button>
+  </div>
+  
+    <form *ngIf="editar" #form="ngForm" [formGroup]="dadosForm">
+      <!--Nome-->
+      <span>Nome:</span>
+      <ion-item>
+      <ion-icon slot="start" name="person-circle-outline"></ion-icon>
+      <ion-input [(ngModel)]="dadoSelecionado.nome" formControlName="nome" type="text" maxlenth="15"></ion-input>
+      <small *ngIf="(dadosForm.get('nome').errors?.required || dadosForm.get('nome').errors?.minLength(3) || dadosForm.get('nome').errors?.maxLength(15) || dadosForm.get('nome').errors?.pattern('[a-zA-Z]*') && form.submitted)">Informe um nome válido</small>
+    </ion-item>
+
+    <ion-label>Sobrenome:</ion-label>
+    <ion-item>
+      <ion-icon slot="start" name="person-circle-outline"></ion-icon>
+      <ion-input [(ngModel)]="dadoSelecionado.sobrenome" formControlName="sobrenome" type=text></ion-input>
+      <small *ngIf="(dadosForm.get('sobrenome').errors?.maxLength(50) && form.submitted)"></small>
+    </ion-item>
+
+    <span>Tipo de Telefone:</span>
+    <ion-item>
+      <ion-icon slot="start" name="call-outline"></ion-icon>
+        <ion-select [(ngModel)]="dadoSelecionado.tipo_tel" formControlName="tipo_tel">
+          <ion-select-option value="Celular">Celular</ion-select-option>
+          <ion-select-option value="Casa">Casa</ion-select-option>
+          <ion-select-option value="Trabalho">Trabalho</ion-select-option>
+        </ion-select>
+        <small *ngIf="(dadosForm.get('tipo_tel').errors?.required && form.submitted)"></small>
+    </ion-item>
+
+    <span>Telefone:</span>
+    <ion-item>
+      <ion-icon slot="start" name="call-outline"></ion-icon>
+      <ion-input [(ngModel)]="dadoSelecionado.telefone" formControlName="telefone" maxlength="15"  simpleMask="(99)-99999-9999"></ion-input>
+    </ion-item>
+    <small *ngIf="(dadosForm.get('telefone').errors?.required || dadosForm.get('telefone').errors?.minLength(15)) && form.submitted">Informe um Número de Telefone válido de 11 caracteres</small>
+
+    <span>Email:</span>
+    <ion-item>
+      <ion-icon slot="start" name="mail-outline"></ion-icon>
+      <ion-input [(ngModel)]="dadoSelecionado.email"  formControlName="email"></ion-input>
+      <small *ngIf="(dadosForm.get('email').errors?.required || dadosForm.get('email').errors?.email && form.submitted)">Informe um email válido</small>
+    </ion-item>
+    
+
+    <ion-button (click)="salvar()" shape="block">Salvar Contato</ion-button>
+    </form>
+
+</ion-content>

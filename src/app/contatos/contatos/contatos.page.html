@@ -1,0 +1,30 @@
+  <ion-header>
+    <ion-toolbar>
+      <ion-title>contatos</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  
+  <ion-content>
+    <ion-fab vertical="top" horizontal="end" edge slot="fixed">
+      <ion-fab-button>
+        <ion-icon name="ellipsis-vertical-outline"></ion-icon>
+      </ion-fab-button>
+      <ion-fab-list side="bottom">
+        <ion-fab-button color="dark" routerLink="/detalhes-contatos/-1"><ion-icon name="person-add-outline"></ion-icon></ion-fab-button>
+        <ion-fab-button color="dark"><ion-icon name="heart-outline"></ion-icon></ion-fab-button>
+      </ion-fab-list>
+    </ion-fab>
+  
+     <ion-searchbar id="buscar" [debounce]="1000" (ionChange)="handleChange($event)" animated="true" placeholder="Buscar Contato" color="dark" ></ion-searchbar>
+
+     <!-- <ion-list>
+      <ion-item *ngFor="let result of results">
+        <ion-label>{{ result }}</ion-label>
+      </ion-item>
+    </ion-list> -->
+     
+    <ion-item *ngFor="let dadosContatos of dadosContatos" routerLink="/detalhes-contatos/{{dadosContatos.id}}">
+      <ion-icon slot="start" name="person-circle-outline"></ion-icon>
+      <ion-label>{{dadosContatos.nome}}</ion-label>
+    </ion-item>
+  </ion-content>
